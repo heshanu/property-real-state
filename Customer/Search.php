@@ -135,6 +135,7 @@ $records = mysql_num_rows($result);
                       <td><span class="style9">Is Furnished?</span></td>
                       <td><span class="style9"><?php echo $Furnished ;?></span></td>
                     </tr>
+                    
                     <tr>
                       <td><span class="style9">Parking?</span></td>
                       <td><span class="style9"><?php echo $Parking ;?></span></td>
