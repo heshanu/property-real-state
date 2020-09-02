@@ -5,7 +5,7 @@ session_start();
 
 <?php
 	if(isset($_POST['button2'])){
-	$_POST['txtName']=1
+	$_POST['txtName']=1;
 		
 	}
 ?>

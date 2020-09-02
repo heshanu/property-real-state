@@ -424,15 +424,15 @@ function ds_onclick(d, m, y) {
 </tr>
 <?php
 // Establish Connection with Database
-$con = mysql_connect("localhost","root");
+$con = mysqli_connect("localhost","root","root");
 // Select Database
-mysql_select_db("pms", $con);
+mysqli_select_db($con,"property");
 // Specify the query to execute
 $sql = "select * from News_Master";
 // Execute query
-$result = mysql_query($sql,$con);
+$result = mysqli_query($con,$sql);
 // Loop through each records 
-while($row = mysql_fetch_array($result))
+while($row = mysqli_fetch_array($result))
 {
 $Id=$row['NewsId'];
 $News=$row['News'];
@@ -448,14 +448,14 @@ $NewsDate=$row['NewsDate'];
 <?php
 }
 // Retrieve Number of records returned
-$records = mysql_num_rows($result);
+$records = mysqli_num_rows($result);
 ?>
 <tr>
 <td colspan="5"><div align="left" class="style7 style8 style12"><?php echo "Total ".$records." Records"; ?> </div></td>
 </tr>
 <?php
 // Close the connection
-mysql_close($con);
+mysqli_close($con);
 ?>
 </table>
            </td>
