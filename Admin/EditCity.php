@@ -6,7 +6,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 {
   $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysql_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -30,11 +30,11 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
-mysql_select_db($database_PMS, $PMS);
+mysqli_select_db($database_PMS, $PMS);
 $query_Recordset1 = "SELECT * FROM state_master";
-$Recordset1 = mysql_query($query_Recordset1, $PMS) or die(mysql_error());
-$row_Recordset1 = mysql_fetch_assoc($Recordset1);
-$totalRows_Recordset1 = mysql_num_rows($Recordset1);
+$Recordset1 = mysqli_query($query_Recordset1, $PMS) or die(mysqli_error());
+$row_Recordset1 = mysqli_fetch_assoc($Recordset1);
+$totalRows_Recordset1 = mysqli_num_rows($Recordset1);
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -72,15 +72,15 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
     <?php
 $Id=$_GET['CityId'];
 // Establish Connection with Database
-$con = mysql_connect("localhost","root");
+$con = mysqli_connect("localhost","root");
 // Select Database
-mysql_select_db("pms", $con);
+mysqli_select_db("pms", $con);
 // Specify the query to execute
 $sql = "select * from City_Master where CityId=".$Id."";
 // Execute query
-$result = mysql_query($sql,$con);
+$result = mysqli_query($sql,$con);
 // Loop through each records 
-while($row = mysql_fetch_array($result))
+while($row = mysqli_fetch_array($result))
 {
 $Id=$row['CityId'];
 $Name=$row['CityName'];
@@ -106,11 +106,11 @@ do {
 ?>
     <option value="<?php echo $row_Recordset1['StateName']?>"><?php echo $row_Recordset1['StateName']?></option>
     <?php
-} while ($row_Recordset1 = mysql_fetch_assoc($Recordset1));
-  $rows = mysql_num_rows($Recordset1);
+} while ($row_Recordset1 = mysqli_fetch_assoc($Recordset1));
+  $rows = mysqli_num_rows($Recordset1);
   if($rows > 0) {
-      mysql_data_seek($Recordset1, 0);
-	  $row_Recordset1 = mysql_fetch_assoc($Recordset1);
+      mysqli_data_seek($Recordset1, 0);
+	  $row_Recordset1 = mysqli_fetch_assoc($Recordset1);
   }
 ?>
   </select>
@@ -133,7 +133,7 @@ do {
 </form>
 <?php
 // Close the connection
-mysql_close($con);
+mysqli_close($con);
 ?>
 </table>
 
@@ -162,5 +162,5 @@ var sprytextfield3 = new Spry.Widget.ValidationTextField("sprytextfield3");
 </body>
 </html>
 <?php
-mysql_free_result($Recordset1);
+mysqli_free_result($Recordset1);
 ?>

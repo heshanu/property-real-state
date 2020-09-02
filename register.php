@@ -1,4 +1,15 @@
-<?php require_once('Connections/PMS.php'); ?>
+<?php require_once('Connections/PMS.php');
+session_start();
+//$cusn=$_POST['txtName']=$_SESSION['txtName'];
+?>
+
+<?php
+	if(isset($_POST['button2'])){
+	$_POST['txtName']=1
+		
+	}
+?>
+
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 

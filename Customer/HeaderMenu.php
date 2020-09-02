@@ -1,5 +1,5 @@
 <div class="header">
-    <div class="header1"><img src="images/logo.jpg" width="229" height="36" /></div>
+    <div class="header1"><h1>REAL STATE!<h1></div>
     <div class="header2">
       <div id="container">
         <div id="mainmenu">
@@ -19,10 +19,8 @@
     <div class="headeriamge1">
       <div class="house"></div>
     </div>
-    <div class="headerimage2">
-      
+    <div class="headerimage2">    
     </div>
     <div>
-    
     </div>
   </div>

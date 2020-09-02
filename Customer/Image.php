@@ -1,21 +1,20 @@
 <?php
 if (!isset($_SESSION)) 
 {
-  session_start();
-  
+  session_start();  
 }
 ?>
 
 <?php
+require('../Connections/PMS.php');
+//require('../Connection/PMS.php');
 
-require_once('../Connections/PMS.php');
-
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+if(!function_exists("GetSQLValueString")) {
+  function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
 {
   $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-
-  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($PMS,$theValue) : mysqli_real_string($PMS,$theValue);
+  //comoot thevalue statement;
+  //$theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($PMS,$theValue) : mysqli_real_string($PMS,$theValue);
 
   switch ($theType) {
     case "text":
@@ -45,7 +44,7 @@ if (isset($_SESSION['CustomerId'])) {
 }
 mysqli_select_db($PMS,$database_PMS);
 $query_Recordset1 = sprintf("SELECT PropertyId, PropertyName FROM property_master WHERE CustomerId = %s", GetSQLValueString($colname_Recordset1, "int"));
-$Recordset1 = mysqli_query($PMS,$query_Recordset1) or die(mysql_error());
+$Recordset1 = mysqli_query($PMS,$query_Recordset1) or die(mysqli_error());
 $row_Recordset1 = mysqli_fetch_assoc($Recordset1);
 $totalRows_Recordset1 = mysqli_num_rows($Recordset1);
 
@@ -87,6 +86,7 @@ if (!isset($_SESSION))
 	  ?>
       <div class="rightpannel">
         <div class="welcome">
+
           <div class="style3" style="height:30px; padding-bottom:5px">Welcome <?php echo $_SESSION['CustomerName'];?></div>
           
           <form action="InsertImage.php" method="post" enctype="multipart/form-data" name="form1" id="form1">
@@ -102,7 +102,7 @@ do {
 } while ($row_Recordset1 = mysqli_fetch_assoc($Recordset1));
   $rows = mysqli_num_rows($Recordset1);
   if($rows > 0) {
-      mysql_data_seek($Recordset1, 0);
+      mysqli_data_seek($Recordset1, 0);
 	  $row_Recordset1 = mysqli_fetch_assoc($Recordset1);
   }
 ?>

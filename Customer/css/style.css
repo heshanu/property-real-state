@@ -81,7 +81,7 @@ body
 	width:249px;
 	height:99px;
 	margin-top:15px;
-	padding-right:15
+	padding-right:15;
 	float:right
 }
 #header_bottom
@@ -89,8 +89,8 @@ body
 	width:249px;
 	height:99px;
 	margin-top:10px;
-	padding-right:15
-	float:right
+	padding-right:15;
+	float:right;
 }
 #content
 {

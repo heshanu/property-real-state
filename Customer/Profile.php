@@ -66,8 +66,7 @@ $Gender =$row['Gender'];
 $BirthDate=$row['BirthDate'];
 $UserName  =$row['UserName'];
 $Password =$row['Password'];
-}
-			?>
+// }?> 		
 				<table width="100%" height="141" border="0" cellpadding="0" cellspacing="0">
                   <tr>
                     <td height="35" bgcolor="#DFDFDF"><span class="style11">ID:</span></td>
@@ -76,9 +75,7 @@ $Password =$row['Password'];
                   <tr>
                     <td height="37"><span class="style11">Name:</span></td>
                     <td><span class="style11"><?php echo $CustomerName;?></span></td>
-                  </tr>
-                 
-                  
+                  </tr>            
                   <tr>
                     <td height="32" bgcolor="#E6E6E6"><span class="style11">Mobile:</span></td>
                     <td bgcolor="#E6E6E6"><span class="style11"><?php echo $Address;?></span></td>
@@ -106,10 +103,13 @@ $Password =$row['Password'];
                     <td><span class="style9"></span></td>
                     <td><a href="EditProfile.php?Id=<?php echo $CustomerId;?>" class="style8">Edit Profile</a></td>
                   </tr>
-                </table>
+        </table>
+        <?php
+        }?> 
+    
 <?php
 // Close the connection
-mysql_close($con);
+mysqli_close($con);
 ?>
         </div>
        

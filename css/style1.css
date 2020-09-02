@@ -61,7 +61,8 @@ img
 	width:458px;
 	height:211px;
 	margin-left:20px;
-	background:url(../images/house.jpg) no-repeat;
+	background:url(../images/big_pic.jpg) no-repeat;
+	position: relative;
 }
 .buying
 {

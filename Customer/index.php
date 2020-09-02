@@ -2,7 +2,9 @@
 if (!isset($_SESSION)) 
 {
   session_start();
-  
+  $cusn1=$_SESSION['txtName'];;
+  $s1="SELECT CustomerName from customer_reg where customerName='$cusn1' ";
+
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
