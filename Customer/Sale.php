@@ -5,7 +5,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 {
   $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -29,11 +29,11 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
-mysql_select_db($database_PMS, $PMS);
+mysqli_select_db($PMS,"property");
 $query_Recordset1 = "SELECT * FROM category_master";
-$Recordset1 = mysql_query($query_Recordset1, $PMS) or die(mysql_error());
-$row_Recordset1 = mysql_fetch_assoc($Recordset1);
-$totalRows_Recordset1 = mysql_num_rows($Recordset1);
+$Recordset1 = mysqli_query($PMS,$query_Recordset1) or die(mysqi_error());
+$row_Recordset1 = mysqli_fetch_assoc($Recordset1);
+$totalRows_Recordset1 = mysqli_num_rows($Recordset1);
 
 if (!isset($_SESSION)) 
 {
@@ -137,11 +137,11 @@ do {
 ?>
                       <option value="<?php echo $row_Recordset1['CategoryId']?>"><?php echo $row_Recordset1['CategoryName']?></option>
                       <?php
-} while ($row_Recordset1 = mysql_fetch_assoc($Recordset1));
-  $rows = mysql_num_rows($Recordset1);
+} while ($row_Recordset1 = mysqli_fetch_assoc($Recordset1));
+  $rows = mysqli_num_rows($Recordset1);
   if($rows > 0) {
-      mysql_data_seek($Recordset1, 0);
-	  $row_Recordset1 = mysql_fetch_assoc($Recordset1);
+      mysqli_data_seek($Recordset1, 0);
+	  $row_Recordset1 = mysqli_fetch_assoc($Recordset1);
   }
 ?>
                     </select></td>
@@ -152,11 +152,11 @@ do {
     <option selected="selected">--Select State--</option>
     <?php
 	// Establish Connection with MYSQL
-	$con = mysql_connect ("localhost","root");
+	$con = mysqli_connect ("localhost","root",'root');
 	// Select Database
-	mysql_select_db("pms", $con);
-$sql=mysql_query("select * from State_Master order by StateId ASC");
-while($row=mysql_fetch_array($sql))
+	mysqli_select_db($con,"property");
+$sql=mysqli_query($con,"select * from State_Master order by StateId ASC");
+while($row=mysqli_fetch_array($sql))
 {
 echo '<option value="'.$row['StateName'].'">'.$row['StateName'].'</option>';
  } ?>
@@ -288,5 +288,5 @@ var sprytextfield5 = new Spry.Widget.ValidationTextField("sprytextfield5");
 </body>
 </html>
 <?php
-mysql_free_result($Recordset1);
+mysqli_free_result($Recordset1);
 ?>
