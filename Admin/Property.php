@@ -29,9 +29,9 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
-mysqli_select_db($database_PMS, $PMS);
+mysqli_select_db($PMS,"property");
 $query_Recordset1 = "SELECT * FROM category_master";
-$Recordset1 = mysqli_query($query_Recordset1, $PMS) or die(mysqli_error());
+$Recordset1 = mysqli_query($PMS,$query_Recordset1) or die(mysqli_error());
 $row_Recordset1 = mysqli_fetch_assoc($Recordset1);
 $totalRows_Recordset1 = mysqli_num_rows($Recordset1);
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -155,10 +155,10 @@ do {
                           <option selected="selected">--Select State--</option>
                           <?php
 	// Establish Connection with MYSQL
-	$con = mysqli_connect ("localhost","root");
+	$con = mysqli_connect("localhost","root","root");
 	// Select Database
-	mysqli_select_db("pms", $con);
-$sql=mysqli_query("select * from State_Master order by StateId ASC");
+	mysqli_select_db($con,"property");
+$sql=mysqli_query($con,"select * from State_Master order by StateId ASC");
 while($row=mysqli_fetch_array($sql))
 {
 echo '<option value="'.$row['StateName'].'">'.$row['StateName'].'</option>';

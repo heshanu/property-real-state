@@ -5,7 +5,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 {
   $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
@@ -29,11 +29,11 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
-mysql_select_db($database_PMS, $PMS);
+mysqli_select_db($PMS,'property');
 $query_Recordset1 = "SELECT * FROM category_master";
-$Recordset1 = mysql_query($query_Recordset1, $PMS) or die(mysql_error());
-$row_Recordset1 = mysql_fetch_assoc($Recordset1);
-$totalRows_Recordset1 = mysql_num_rows($Recordset1);
+$Recordset1 = mysqli_query($PMS,$query_Recordset1 ) or die(mysqli_error());
+$row_Recordset1 = mysqli_fetch_assoc($Recordset1);
+$totalRows_Recordset1 = mysqli_num_rows($Recordset1);
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -102,11 +102,11 @@ $(".city").html(html);
     <option selected="selected">--Select State--</option>
     <?php
 	// Establish Connection with MYSQL
-	$con = mysql_connect ("localhost","root");
+	$con = mysqli_connect ("localhost","root","root");
 	// Select Database
-	mysql_select_db("pms", $con);
-$sql=mysql_query("select * from State_Master order by StateId ASC");
-while($row=mysql_fetch_array($sql))
+	mysqli_select_db($con,"property");
+$sql=mysqli_query($con,"select * from State_Master order by StateId ASC");
+while($row=mysqli_fetch_array($sql))
 {
 echo '<option value="'.$row['StateName'].'">'.$row['StateName'].'</option>';
  } ?>
@@ -131,11 +131,11 @@ do {
 ?>
           <option value="<?php echo $row_Recordset1['CategoryId']?>"><?php echo $row_Recordset1['CategoryName']?></option>
           <?php
-} while ($row_Recordset1 = mysql_fetch_assoc($Recordset1));
-  $rows = mysql_num_rows($Recordset1);
+} while ($row_Recordset1 = mysqli_fetch_assoc($Recordset1));
+  $rows = mysqli_num_rows($Recordset1);
   if($rows > 0) {
-      mysql_data_seek($Recordset1, 0);
-	  $row_Recordset1 = mysql_fetch_assoc($Recordset1);
+      mysqli_data_seek($Recordset1, 0);
+	  $row_Recordset1 = mysqli_fetch_assoc($Recordset1);
   }
 ?>
         </select>
@@ -196,21 +196,21 @@ $e=$_POST['cmbCost'];
 $f=$_POST['cmbAge'];
 
 // Establish Connection with Database
-$con = mysql_connect("localhost","root");
+$con = mysqli_connect("localhost","root",'root');
 // Select Database
-mysql_select_db("pms", $con);
+mysqli_select_db($con,"property");
 // Specify the query to execute
 $sql = "SELECT category_master.CategoryName, property_master.PropertyId, property_master.StateName, property_master.CityName, property_master.AreaName, property_master.PropertyName, property_master.PropertyImage, property_master.PropertyDesc, property_master.TotalArea, property_master.PropertyAge, property_master.TotalRoom, property_master.PropertyCost, property_master.Status, property_master.CustomerId
 FROM  category_master, property_master
 WHERE category_master.CategoryId=property_master.CategoryId AND property_master.StateName='".$a."' AND property_master.CityName='".$b."' AND property_master.AreaName='".$c."' AND property_master.CategoryId='".$d."' AND property_master.PropertyCost <='".$e."' AND property_master.PropertyAge<='".$f."'";
 // Execute query
-$result = mysql_query($sql,$con);
-$records = mysql_num_rows($result);
+$result = mysqli_query($sql,$con);
+$records = mysqli_num_rows($result);
 echo $records." Property Found";
 
 
 // Loop through each records 
-while($row = mysql_fetch_array($result))
+while($row = mysqli_fetch_array($result))
 {
 $PId=$row['PropertyId'];
 $CategoryName=$row['CityName'];
@@ -237,7 +237,7 @@ $CID=$row['CustomerId'];
                   <td colspan="4" bgcolor="#FFFFFF"><span class="style23">
                     <?php 
 			  // Retrieve Number of records returned
-$records = mysql_num_rows($result);
+$records = mysqli_num_rows($result);
 
 			  ?>
                   </span></td>
@@ -290,7 +290,7 @@ $records = mysql_num_rows($result);
               <?php
 }
 
-mysql_close($con);
+mysqli_close($con);
 }
 ?>
               </td>
@@ -300,5 +300,5 @@ mysql_close($con);
 </body>
 </html>
 <?php
-mysql_free_result($Recordset1);
+mysqli_free_result($Recordset1);
 ?>
